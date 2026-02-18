@@ -1,0 +1,31 @@
+name: build-dev
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  docker-compose-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and start (dev)
+        run: docker compose up -d --build
+
+      - name: Wait for web (port 5011)
+        run: |
+          for i in {1..40}; do
+            if curl -fsS http://localhost:5011/ > /dev/null; then
+              echo "Web is up"
+              exit 0
+            fi
+            sleep 2
+          done
+          docker compose ps
+          docker compose logs --tail=200
+          exit 1
+
+      - name: Tear down
+        if: always()
+        run: docker compose down -v

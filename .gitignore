@@ -1,9 +1,11 @@
-# NEVER commit production secrets
+# never commit real env files
 .env
+.env.dev
+.env.dev.db
 .env.prod
 .env.prod.db
 
-# Python
+# python
 __pycache__/
 *.pyc
 .venv/

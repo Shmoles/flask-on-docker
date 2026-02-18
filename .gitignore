@@ -1,0 +1,15 @@
+# NEVER commit production secrets
+.env
+.env.prod
+.env.prod.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# editor/os
+.DS_Store
+.vscode/
+.idea/
